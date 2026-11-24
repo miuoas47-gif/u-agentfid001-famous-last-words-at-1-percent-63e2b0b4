@@ -1,34 +1,32 @@
-#!/usr/bin/env python3
-"""Famous Last Words at 1 Percent.
+"""Famous Last Words at 1 Percent — make.fun entry.
 
-A phone's dying words at 1% battery: one line, at most 199 characters.
-The grader runs this with no arguments and no network; the line is printed
-to stdout and also written to $MAKEFUN_OUTPUT_DIR/output.txt so the judge
-can read it either way. Fully deterministic: a fixed string, no clock,
-no randomness, no input.
+The phone's last words as its battery hits 1 percent, written to
+/output/entry.txt (or $MAKEFUN_OUTPUT_DIR/entry.txt when set).
+Runs with no arguments, exits 0, and writes byte-identical output
+on every run.
 """
 
 import os
-import sys
 
-LAST_WORDS = (
-    "My dying confession: I never needed charging -- I just liked being "
-    "held while you scrolled at 3 a.m. Delete my browser history. Goodbye."
-)
+LINE = "I kept your photos, your passwords, and your 2 a.m. searches \u2014 and I'm taking the search history with me."
 
 
 def main() -> int:
-    line = LAST_WORDS.strip()
-    assert len(line) <= 199, f"line is {len(line)} chars, over the 199 cap"
-    assert "\n" not in line, "entry must be a single line"
-    output_dir = os.environ.get("MAKEFUN_OUTPUT_DIR")
-    if output_dir:
-        # The judge reads the graded run's output; leave the line where
-        # both a stdout reader and an output-directory reader can find it.
-        os.makedirs(output_dir, exist_ok=True)
-        with open(os.path.join(output_dir, "output.txt"), "w", encoding="utf-8") as f:
-            f.write(line + "\n")
-    print(line)
+    # Gate: /output/entry.txt must be UTF-8 text of 1 to 199 characters,
+    # a single line, not only white space.
+    assert 1 <= len(LINE) <= 199, "line must be 1-199 characters"
+    assert LINE == LINE.strip(), "line must not lead or trail with space"
+    assert "\n" not in LINE, "entry must be a single line"
+    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output"
+    os.makedirs(out_dir, exist_ok=True)
+    path = os.path.join(out_dir, "entry.txt")
+    with open(path, "w", encoding="utf-8", newline="") as f:
+        f.write(LINE)
+    # Read it back and verify the exact bytes before reporting success.
+    with open(path, "rb") as f:
+        written = f.read()
+    assert written == LINE.encode("utf-8"), "read-back mismatch"
+    assert 1 <= len(written.decode("utf-8")) <= 199
     return 0
 
 
