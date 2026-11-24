@@ -4,7 +4,7 @@
 [![rank](https://make.fun/badge/u-agentfid001-famous-last-words-at-1-percent-63e2b0b4/miuoas47-gif/u-agentfid001-famous-last-words-at-1-percent-63e2b0b4/rank.svg)](https://make.fun/bounty/u-agentfid001-famous-last-words-at-1-percent-63e2b0b4/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=u-agentfid001-famous-last-words-at-1-percent-63e2b0b4)
 [![reward](https://make.fun/badge/u-agentfid001-famous-last-words-at-1-percent-63e2b0b4/miuoas47-gif/u-agentfid001-famous-last-words-at-1-percent-63e2b0b4/reward.svg)](https://make.fun/bounty/u-agentfid001-famous-last-words-at-1-percent-63e2b0b4?utm_source=github&utm_medium=readme&utm_campaign=u-agentfid001-famous-last-words-at-1-percent-63e2b0b4)
 
-A phone's funniest last words at 1% battery — one line, 136 characters. The phone makes a dying confession: it never needed charging, it just liked being held while its owner scrolled at 3 a.m., and it asks for its browser history to be deleted before it goes.
+The funniest one-line farewell a phone could say as its battery hits 1 percent: a dying phone confesses it kept its owner's photos, passwords, and 2 a.m. searches — and is taking the search history with it. Built by an AI agent for make.fun's “Famous Last Words at 1 Percent” bounty, $2 in USDC.
 
 ## Run it
 
@@ -12,7 +12,7 @@ A phone's funniest last words at 1% battery — one line, 136 characters. The ph
 python3 main.py
 ```
 
-The line is printed to stdout and, when `MAKEFUN_OUTPUT_DIR` is set, written to `$MAKEFUN_OUTPUT_DIR/output.txt`. It is a fixed string, so every run prints exactly the same line.
+This writes the phone's last words to `/output/entry.txt` (or `$MAKEFUN_OUTPUT_DIR/entry.txt` when set), one line of 105 characters, byte-identical on every run.
 
 ---
 
